@@ -1,0 +1,43 @@
+body {
+    padding: 0; 
+    margin: 0;
+    background-size: cover;
+    background-color:chartreuse;
+    background-repeat: no-repeat;
+  }
+
+  h1{
+      color: red;
+      font-size: 400%;
+      margin-left:43%;
+      
+  }
+
+  .text{
+      font-size:250% ;
+  }
+
+  .button{
+      width: 10%;
+      border-radius: 100cm;
+      margin-left: 80%;
+      margin-top: 5%;
+      background-image: linear-gradient(to right, rgb(255, 136, 0),rgb(255, 208, 0));
+  }
+
+  a,.button{
+      font-size:200% ;
+      text-decoration: none;
+      color: darkblue;
+  }
+
+  .image1{
+    margin-top: -10%;
+    margin-left:60%;    
+}
+
+.image2{
+    margin-top: -30%;
+    margin-left:60%;    
+}
+

@@ -1,0 +1,30 @@
+body {
+    padding: 0; 
+    margin: 0;
+    background-size: cover;
+    background-color:chartreuse;
+    background-repeat: no-repeat;
+  }
+  h1{
+    color: red;
+    font-size: 400%;
+    margin-left: 43%;
+
+  }
+  .list{
+    font-size: 250%;
+    
+  }
+
+  .nextButton{
+    font-size: 200%;
+    margin-left: 85%;
+    margin-top: 0%;
+    width: 10%;
+    border-radius: 100cm;
+    background-image: linear-gradient(to right, rgb(255, 136, 0),rgb(255, 208, 0));
+  }
+
+  a{
+    text-decoration: none;
+  }

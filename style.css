@@ -1,0 +1,35 @@
+body {
+  padding: 0; 
+  margin: 0;
+  background-size: cover;
+  background-color:chartreuse;
+  background-repeat: no-repeat;
+}
+h1 {
+  font-size: 350%;
+  align-items: center;
+  margin-left: 35%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: red;
+}
+
+.button {
+ margin-left: 80% ;
+ margin-top: 28%;
+ width: 15%;
+ height: 30%;
+ background-image: linear-gradient(to right, rgb(255, 136, 0),rgb(255, 208, 0));
+ border-radius: 100cm;
+}
+a{
+  font-size: 200%;
+  text-decoration:none;
+  color:darkblue;
+}
+
+.image1{
+  margin-left: 2%;
+  margin-top: -25%;
+}
+
+
