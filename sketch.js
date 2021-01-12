@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 var backgroundImg;
 var fish;
 var gun;
-var gameState='stage2';
+var gameState='stage1';
 var rand1;
 var rand2;
 var puzzle1Input;
@@ -67,13 +67,7 @@ function setup(){
     puzzleScreen1.shapeColor="green"
     puzzleScreen1.visible=false
 
-    puzzle1Input=createInput("");
-    puzzle1Input.style('font-size:30px')
-
-    puzzle1InputVal=puzzle1Input.value();
-
-    puzzle1Button=createButton("Submit")
-    puzzle1Button.style('font-size:50px')
+   
 
    /* gun=createSprite(displayWidth/2+660,displayHeight/2+175,50,15)
     gun.shapeColor="black"*/
@@ -126,8 +120,14 @@ function draw(){
         fill("black");
         text(rand1 + "+" + rand2 + "=",displayWidth/2-500,displayHeight/2-100)    
         puzzleScreen1.visible=true; 
+        puzzle1Input=createInput("hi");
+        puzzle1Input.style('font-size:30px')
+    
+        puzzle1Button=createButton("Submit")
+        puzzle1Button.style('font-size:50px')
         puzzle1Input.position(displayWidth/2+displayWidth/6,displayHeight/2-displayHeight/5.1)
         puzzle1Button.position(displayWidth/2+displayWidth/3,displayHeight/2)
+        puzzle1InputVal=puzzle1Input.value();
 
     }
 
@@ -142,8 +142,11 @@ function draw(){
        fish.visible=false;
     }
 
-    if(gameState=='puzzle1' && puzzle1InputVal==rand1+rand2 && mousePressedOver(puzzle1Button)){
-        gameState='stage2'
+    if(gameState=='puzzle1' && puzzle1InputVal==rand1+rand2 ){
+        puzzle1Button.mousePressedOver(()=>{
+            gameState='stage2';
+        })
+        
     }
 
     if(gameState=='stage2'||gameState=='stage3'){
