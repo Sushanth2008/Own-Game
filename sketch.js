@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 var backgroundImg;
 var fish;
 var gun;
-var gameState='stage1';
+var gameState='stage2';
 var rand1;
 var rand2;
 var puzzle1Input;
@@ -115,7 +115,6 @@ function draw(){
     puzzleScreen1.display();
 
     if(gameState=='puzzle1'){
-       // 
         textSize(100);
         fill("black");
         text(rand1 + "+" + rand2 + "=",displayWidth/2-500,displayHeight/2-100)    
@@ -128,7 +127,6 @@ function draw(){
         puzzle1Input.position(displayWidth/2+displayWidth/6,displayHeight/2-displayHeight/5.1)
         puzzle1Button.position(displayWidth/2+displayWidth/3,displayHeight/2)
         puzzle1InputVal=puzzle1Input.value();
-
     }
 
     if(gameState=='puzzle1'||gameState=='puzzle2'||gameState=='puzzle3'){
@@ -154,7 +152,9 @@ function draw(){
        textSize(100);
        fill("black")
        text("Finished",displayWidth/2-200,displayHeight/2+210)
-       puzzle1Button.visible=false;
+       
+       area1BorderA.visible=true;
+       area1BorderB.visible=true;
        area1obA.destroy();
        area1obB.destroy();
        area1obC.destroy();
