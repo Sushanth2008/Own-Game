@@ -63,14 +63,23 @@ function setup(){
     area1GateClosed.shapeColor="red"
     area1GateClosed.visible=false
 
+    area2BorderA=createSprite(displayWidth/2+605,displayHeight/2-150,160,15);
+    area2BorderA.shapeColor="red" 
+     
+    area2BorderB=createSprite(displayWidth/2-150,displayHeight/2-150,1200,15);
+    area2BorderB.shapeColor="red"  
+
+    area2Gate=createSprite(displayWidth/2+487.5,displayHeight/2-150,75,10)
+    area2Gate.shapeColor="yellow"
+
     puzzleScreen1=createSprite(displayWidth/2,displayHeight/2,1500,1000)
     puzzleScreen1.shapeColor="green"
     puzzleScreen1.visible=false
 
    
 
-   /* gun=createSprite(displayWidth/2+660,displayHeight/2+175,50,15)
-    gun.shapeColor="black"*/
+    gun=createSprite(displayWidth/2+660,displayHeight/2+175,50,15)
+    gun.shapeColor="black"
 
 }
 
@@ -80,7 +89,27 @@ function draw(){
 
     console.log(puzzle1InputVal);    
 
-    if(gameState=='stage1'||gameState=='stage2'||gameState=='stage3'){
+    if(gameState=='stage1'){
+
+        if(keyDown(UP_ARROW)){
+            fish.y=fish.y-10
+        }
+    
+        if(keyDown(DOWN_ARROW)){
+            fish.y=fish.y+10
+        }
+    
+        if(keyDown(RIGHT_ARROW)){
+            fish.x=fish.x+10
+        }
+    
+        if(keyDown(LEFT_ARROW)){
+            fish.x=fish.x-10
+        }
+       
+}
+
+if(gameState=='stage3'){
 
     if(keyDown(UP_ARROW)){
         fish.y=fish.y-10
@@ -97,16 +126,16 @@ function draw(){
     if(keyDown(LEFT_ARROW)){
         fish.x=fish.x-10
     }
-       
+   
 }
 
-    /*if(fish.x>623 && fish.y>=518.95){
+    //if(fish.x>623 && fish.y>=518.95){
         gun.velocityY=-2
-    }
+    //}
 
-    if(fish.x<623){
-        gun.velocityY=0
-    }*/
+    //if(fish.x<623){
+        //gun.velocityY=0
+    //}
 
     if(gameState=='stage1' && fish.isTouching(area1Gate)){
         gameState='puzzle1'
@@ -162,8 +191,38 @@ function draw(){
     }
 
     if(gameState=='stage2'){
+
+        if(keyDown(UP_ARROW)){
+            fish.y=fish.y-10
+        }
+    
+        if(keyDown(DOWN_ARROW)){
+            fish.y=fish.y+10
+        }
+    
+        if(keyDown(RIGHT_ARROW)){
+            fish.x=fish.x+10
+        }
+    
+        if(keyDown(LEFT_ARROW)){
+            fish.x=fish.x-10
+        }
+
        fish.y=displayHeight/2+50
        fish.x=displayWidth/2-600
+
+       area1GateClosed.visible=true
+       textSize(100);
+       fill("black")
+       text("Finished",displayWidth/2-200,displayHeight/2+210)
+       
+       area1BorderA.visible=true;
+       area1BorderB.visible=true;
+       area1obA.destroy();
+       area1obB.destroy();
+       area1obC.destroy();
+       area1obD.destroy();
+      
     }
 
     fish.display();
@@ -180,8 +239,12 @@ function draw(){
     area1obC.display();
     area1obD.display();
     area1GateClosed.display();
+    area2BorderA.display();
+    area2BorderB.display();
+    area2Gate.display();
     
-    //gun.display();
+    
+    gun.display();
   
 
     fish.collide(inviBorder1);
@@ -195,5 +258,9 @@ function draw(){
     fish.collide(area1obB);
     fish.collide(area1obC);
     fish.collide(area1obD);
+    gun.collide(area1BorderB);
+    gun.collide(area2BorderB);
     
 }
+
+
