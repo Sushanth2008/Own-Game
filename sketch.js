@@ -38,10 +38,10 @@ function setup(){
     rand1=Math.round(random(2000,20000));
     rand2=Math.round(random(2000,20000));
 
-    area1BorderA=createSprite(displayWidth/2+605,displayHeight/2+100,160,15);
+    area1BorderA=createSprite(displayWidth/2-150,displayHeight/2+100,1200,15);
     area1BorderA.shapeColor="red" 
      
-    area1BorderB=createSprite(displayWidth/2-150,displayHeight/2+100,1200,15);
+    area1BorderB=createSprite(displayWidth/2+605,displayHeight/2+100,160,15);
     area1BorderB.shapeColor="red"  
 
     area1Gate=createSprite(displayWidth/2+487.5,displayHeight/2+100,75,10)
@@ -59,7 +59,7 @@ function setup(){
     area1obD=createSprite(displayWidth/2+300,displayHeight/2+210,10,70)
     area1obD.shapeColor="blue"
 
-    area1GateClosed=createSprite(displayWidth/2+500,displayHeight/2+100,150,15)
+    area1GateClosed=createSprite(displayWidth/2+487,displayHeight/2+100,80,15)
     area1GateClosed.shapeColor="red"
     area1GateClosed.visible=false
 
@@ -78,8 +78,22 @@ function setup(){
 
    
 
-    gun=createSprite(displayWidth/2+660,displayHeight/2+175,50,15)
+    gun=createSprite(displayWidth/2+660,displayHeight/2-20,50,15)
     gun.shapeColor="black"
+    gun.velocityY=0
+
+    fish.debug=true
+    area1BorderA.debug=true
+    area1BorderB.debug=true
+    inviBorder1.debug=true
+    inviBorder2.debug=true
+    inviBorder3.debug=true
+    inviBorder4.debug=true
+    area1Gate.debug=true;
+    area1obA.debug=true;
+    area1obB.debug=true;
+    area1obC.debug=true;
+    area1obD.debug=true;
 
 }
 
@@ -130,15 +144,16 @@ if(gameState=='stage3'){
 }
 
     //if(fish.x>623 && fish.y>=518.95){
-        gun.velocityY=-2
+        
     //}
 
-    //if(fish.x<623){
-        //gun.velocityY=0
-    //}
+    if(fish.x<423){
+        gun.velocityY=0
+    }
 
     if(gameState=='stage1' && fish.isTouching(area1Gate)){
         gameState='puzzle1'
+        area1Gate.destroy();
     }
 
     puzzleScreen1.display();
@@ -163,9 +178,12 @@ if(gameState=='stage3'){
        area1obB.destroy();
        area1obC.destroy();
        area1obD.destroy();
-       area1Gate.destroy();
        area1BorderA.visible=false;
        area1BorderB.visible=false;
+       area2BorderA.visible=false;
+       area2BorderB.visible=false;
+       area2Gate.destroy();
+       gun.destroy();
        fish.visible=false;
     }
 
@@ -216,13 +234,21 @@ if(gameState=='stage3'){
        fill("black")
        text("Finished",displayWidth/2-200,displayHeight/2+210)
        
-       area1BorderA.visible=true;
-       area1BorderB.visible=true;
        area1obA.destroy();
        area1obB.destroy();
        area1obC.destroy();
        area1obD.destroy();
+
+     
       
+    }
+
+    if(gun.isTouching(area2BorderA)){
+        gun.velocityY=4;
+    }
+
+    if(gun.isTouching(area1BorderB)){
+        gun.velocityY=-4;
     }
 
     fish.display();
@@ -238,14 +264,11 @@ if(gameState=='stage3'){
     area1obB.display();
     area1obC.display();
     area1obD.display();
-    area1GateClosed.display();
+    area1GateClosed.display(); 
     area2BorderA.display();
     area2BorderB.display();
     area2Gate.display();
-    
-    
-    gun.display();
-  
+    gun.display(); 
 
     fish.collide(inviBorder1);
     fish.collide(inviBorder2);
@@ -258,8 +281,6 @@ if(gameState=='stage3'){
     fish.collide(area1obB);
     fish.collide(area1obC);
     fish.collide(area1obD);
-    gun.collide(area1BorderB);
-    gun.collide(area2BorderB);
     
 }
 
