@@ -4,16 +4,18 @@ const Bodies = Matter.Bodies;
 var backgroundImg;
 var fish;
 var gun;
-var gameState='stage1';
+var gameState='stage3';
 var rand1;
 var rand2;
 var puzzle1Input;
 var puzzle1InputVal
 var puzzle1Button;
+var bullet;
 
 function preload() {
     backgroundImg=loadImage("Images/background.jpg")
     fishImg=loadImage("Images/fishImage.png")
+    fishImg2=loadImage("Images/fishImage2.png")
     gunImg=loadImage("Images/gunImage.png")
 }
 
@@ -22,9 +24,16 @@ function setup(){
     engine = Engine.create();
     world = engine.world; 
 
+    bulletGroup=createGroup();
+
     fish=createSprite(displayWidth/2-600,displayHeight/2+190)
     fish.addAnimation("fish",fishImg)
     fish.scale=0.3
+
+    fish2=createSprite(displayWidth/2-600,displayHeight/2)
+    fish2.addAnimation("fish",fishImg2)
+    fish2.visible=false;
+    fish2.scale=0.15
 
     inviBorder1=createSprite(displayWidth/2-680,displayHeight/2,5,1000);
     inviBorder1.visible=false;
@@ -64,14 +73,28 @@ function setup(){
     area1GateClosed.shapeColor="red"
     area1GateClosed.visible=false
 
-    area2BorderA=createSprite(displayWidth/2+605,displayHeight/2-150,160,15);
-    area2BorderA.shapeColor="red" 
-     
-    area2BorderB=createSprite(displayWidth/2-150,displayHeight/2-150,1200,15);
-    area2BorderB.shapeColor="red"  
+    area1cover=createSprite(displayWidth/2,displayHeight/2+175,1400,150);
+    area1cover.shapeColor="black"
+    area1cover.visible=false;
 
-    area2Gate=createSprite(displayWidth/2+487.5,displayHeight/2-150,75,10)
+    area2BorderA=createSprite(displayWidth/2-250,displayHeight/2-150,1200,15);
+    area2BorderA.shapeColor="red" 
+    area2BorderA.visible=false;
+     
+    area2BorderB=createSprite(displayWidth/2+555,displayHeight/2-150,260,15);
+    area2BorderB.shapeColor="red" 
+    area2BorderB.visible=false;
+
+    area2Gate=createSprite(displayWidth/2+387.5,displayHeight/2-150,75,10)
     area2Gate.shapeColor="yellow"
+    area2Gate.visible=false;
+
+    area2gateClosed=createSprite(displayWidth/2+387.5,displayHeight/2-150,75,15);
+    area2gateClosed.shapeColor="red"
+
+    area2cover=createSprite(displayWidth/2,displayHeight/2-30,1400,250);
+    area2cover.shapeColor="black"
+    area2cover.visible=false;
 
     puzzleScreen1=createSprite(displayWidth/2,displayHeight/2,1500,1000)
     puzzleScreen1.shapeColor="green"
@@ -82,9 +105,8 @@ function setup(){
     gun=createSprite(displayWidth/2+600,displayHeight/2-20,50,15)
     gun.addAnimation("gun",gunImg)
     gun.scale=0.5
-    gun.velocityY=-4
-
-    
+    gun.visible=false;
+    gun.velocityY=4    
 
 }
 
@@ -116,10 +138,14 @@ function draw(){
             gameState='puzzle1'
             area1Gate.destroy();
         }
+
+        area2cover.visible=true;
        
 }    
 
     puzzleScreen1.display();
+    area1cover.display();   
+    area2cover.display(); 
 
     if(gameState=='puzzle1'){
         textSize(100);
@@ -145,28 +171,32 @@ function draw(){
     if(gameState=='stage2'){
 
         if(keyDown(UP_ARROW)){
-            fish.y=fish.y-10
+            fish2.y=fish2.y-10
         }
     
         if(keyDown(DOWN_ARROW)){
-            fish.y=fish.y+10
+            fish2.y=fish2.y+10
         }
     
         if(keyDown(RIGHT_ARROW)){
-            fish.x=fish.x+10
+            fish2.x=fish2.x+10
         }
     
         if(keyDown(LEFT_ARROW)){
-            fish.x=fish.x-10
+            fish2.x=fish2.x-10
         }
 
        fish.y=displayHeight/2+50
        fish.x=displayWidth/2-600
 
+       
+
        area1GateClosed.visible=true
+       area1cover.visible=true;
+       area2cover.visible=false;
        textSize(100);
-       fill("black")
-       text("Finished",displayWidth/2-200,displayHeight/2+210)
+       fill("white")
+       text("Finished",displayWidth/2-200,displayHeight/2+210)       
        
        area1obA.destroy();
        area1obB.destroy();
@@ -174,24 +204,24 @@ function draw(){
        area1obD.destroy();
 
        area1GateClosed.visible=true
-       textSize(100);
-       fill("black")
-       text("Finished",displayWidth/2-200,displayHeight/2+210)
        
        area1BorderA.visible=true;
        area1BorderB.visible=true;
        area1obA.destroy();
        area1obB.destroy();
        area1obC.destroy();
-       area1obD.destroy();   
-       
-       if(gun.isTouching(area2BorderA)){
-        gun.velocityY=4;
-    }
+       area1obD.destroy();
+       fish.destroy();
 
-    if(gun.isTouching(area1BorderB)){
-        gun.velocityY=-4;
-    }
+       area2BorderA.visible=true
+       area2BorderB.visible=true
+       area2Gate.visible=true
+       gun.visible=true;       
+       fish2.visible=true;
+
+       if(fish2.isTouching(area2Gate)){
+           gameState='stage3'
+       }
 
     //if(fish.x>623 && fish.y>=518.95){
         
@@ -221,17 +251,32 @@ function draw(){
             fish.x=fish.x-10
         }
     
-        area1GateClosed.visible=true
+           area1GateClosed.visible=true
+
            textSize(100);
-           fill("black")
+           fill("white")
            text("Finished",displayWidth/2-200,displayHeight/2+210)
            
-           area1BorderA.visible=true;
-           area1BorderB.visible=true;
+           area2BorderA.visible=true;
+           area2BorderB.visible=true;
            area1obA.destroy();
            area1obB.destroy();
            area1obC.destroy();
            area1obD.destroy();
+
+           area2cover.visible=true;
+           area1cover.visible=true;
+
+           gun.destroy();
+           fish.destroy();
+           fish2.destroy();
+           area2Gate.destroy();
+           area2gateClosed.display()
+
+       textSize(100);
+       fill("white")
+       text("Finished",displayWidth/2-200,displayHeight/2)
+           
        
     }
 
@@ -247,9 +292,18 @@ function draw(){
         area2Gate.destroy();
         gun.destroy();
         fish.visible=false;
-     }      
+     } 
+     
+     if(gun.isTouching(area2BorderB)){
+        gun.velocityY=4;
+    }
+
+    if(gun.isTouching(area1BorderB)){
+        gun.velocityY=-4;
+    }   
 
     fish.display();
+    fish2.display()
     inviBorder1.display();
     inviBorder2.display();
     inviBorder3.display();
@@ -279,7 +333,30 @@ function draw(){
     fish.collide(area1obB);
     fish.collide(area1obC);
     fish.collide(area1obD);
+
+    
+    fish2.collide(inviBorder1);
+    fish2.collide(inviBorder2);
+    fish2.collide(inviBorder3);
+    fish2.collide(inviBorder4);
+    fish2.collide(area1BorderA);
+    fish2.collide(area1BorderB);
+    fish2.collide(area1GateClosed);
+    fish2.collide(area2BorderA);
+    fish2.collide(area2BorderB);
+    fish2.collide(area2Gate);
+
+   // spawnobstacles()
     
 }
 
-
+function spawnobstacles(){
+    if(frameCount%100===0)
+   bullet=createSprite(displayWidth/2,displayHeight/2,10,10);
+   bullet.y=gun.y
+   bullet.x=gun.x
+   bullet.velocityX-4
+   bullet.lifetime=100;
+   bulletGroup.add(bullet)
+   return bullet;
+}
