@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 var backgroundImg;
 var fish;
 var gun;
-var gameState='stage2';
+var gameState='stage1';
 var rand1;
 var rand2;
 var puzzle1Input;
@@ -14,6 +14,7 @@ var puzzle1Button;
 function preload() {
     backgroundImg=loadImage("Images/background.jpg")
     fishImg=loadImage("Images/fishImage.png")
+    gunImg=loadImage("Images/gunImage.png")
 }
 
 function setup(){
@@ -78,22 +79,12 @@ function setup(){
 
    
 
-    gun=createSprite(displayWidth/2+660,displayHeight/2-20,50,15)
-    gun.shapeColor="black"
-    gun.velocityY=0
+    gun=createSprite(displayWidth/2+600,displayHeight/2-20,50,15)
+    gun.addAnimation("gun",gunImg)
+    gun.scale=0.5
+    gun.velocityY=-4
 
-    fish.debug=true
-    area1BorderA.debug=true
-    area1BorderB.debug=true
-    inviBorder1.debug=true
-    inviBorder2.debug=true
-    inviBorder3.debug=true
-    inviBorder4.debug=true
-    area1Gate.debug=true;
-    area1obA.debug=true;
-    area1obB.debug=true;
-    area1obC.debug=true;
-    area1obD.debug=true;
+    
 
 }
 
@@ -120,41 +111,13 @@ function draw(){
         if(keyDown(LEFT_ARROW)){
             fish.x=fish.x-10
         }
+
+        if(fish.isTouching(area1Gate)){
+            gameState='puzzle1'
+            area1Gate.destroy();
+        }
        
-}
-
-if(gameState=='stage3'){
-
-    if(keyDown(UP_ARROW)){
-        fish.y=fish.y-10
-    }
-
-    if(keyDown(DOWN_ARROW)){
-        fish.y=fish.y+10
-    }
-
-    if(keyDown(RIGHT_ARROW)){
-        fish.x=fish.x+10
-    }
-
-    if(keyDown(LEFT_ARROW)){
-        fish.x=fish.x-10
-    }
-   
-}
-
-    //if(fish.x>623 && fish.y>=518.95){
-        
-    //}
-
-    if(fish.x<423){
-        gun.velocityY=0
-    }
-
-    if(gameState=='stage1' && fish.isTouching(area1Gate)){
-        gameState='puzzle1'
-        area1Gate.destroy();
-    }
+}    
 
     puzzleScreen1.display();
 
@@ -171,41 +134,12 @@ if(gameState=='stage3'){
         puzzle1Input.position(displayWidth/2+displayWidth/6,displayHeight/2-displayHeight/5.1)
         puzzle1Button.position(displayWidth/2+displayWidth/3,displayHeight/2)
         puzzle1InputVal=puzzle1Input.value();
-    }
 
-    if(gameState=='puzzle1'||gameState=='puzzle2'||gameState=='puzzle3'){
-       area1obA.destroy();
-       area1obB.destroy();
-       area1obC.destroy();
-       area1obD.destroy();
-       area1BorderA.visible=false;
-       area1BorderB.visible=false;
-       area2BorderA.visible=false;
-       area2BorderB.visible=false;
-       area2Gate.destroy();
-       gun.destroy();
-       fish.visible=false;
-    }
-
-    if(gameState=='puzzle1' && puzzle1InputVal==rand1+rand2 ){
-        puzzle1Button.mousePressedOver(()=>{
-            gameState='stage2';
-        })
-        
-    }
-
-    if(gameState=='stage2'||gameState=='stage3'){
-       area1GateClosed.visible=true
-       textSize(100);
-       fill("black")
-       text("Finished",displayWidth/2-200,displayHeight/2+210)
-       
-       area1BorderA.visible=true;
-       area1BorderB.visible=true;
-       area1obA.destroy();
-       area1obB.destroy();
-       area1obC.destroy();
-       area1obD.destroy();
+        if(puzzle1InputVal==rand1+rand2 ){
+            puzzle1Button.mousePressedOver(()=>{
+                gameState='stage2';
+            })
+    }        
     }
 
     if(gameState=='stage2'){
@@ -239,17 +173,81 @@ if(gameState=='stage3'){
        area1obC.destroy();
        area1obD.destroy();
 
-     
-      
-    }
-
-    if(gun.isTouching(area2BorderA)){
+       area1GateClosed.visible=true
+       textSize(100);
+       fill("black")
+       text("Finished",displayWidth/2-200,displayHeight/2+210)
+       
+       area1BorderA.visible=true;
+       area1BorderB.visible=true;
+       area1obA.destroy();
+       area1obB.destroy();
+       area1obC.destroy();
+       area1obD.destroy();   
+       
+       if(gun.isTouching(area2BorderA)){
         gun.velocityY=4;
     }
 
     if(gun.isTouching(area1BorderB)){
         gun.velocityY=-4;
     }
+
+    //if(fish.x>623 && fish.y>=518.95){
+        
+    //}
+
+    /*if(fish.x<423){
+        gun.velocityY=0
+    }*/
+      
+    }
+
+    if(gameState=='stage3'){
+
+        if(keyDown(UP_ARROW)){
+            fish.y=fish.y-10
+        }
+    
+        if(keyDown(DOWN_ARROW)){
+            fish.y=fish.y+10
+        }
+    
+        if(keyDown(RIGHT_ARROW)){
+            fish.x=fish.x+10
+        }
+    
+        if(keyDown(LEFT_ARROW)){
+            fish.x=fish.x-10
+        }
+    
+        area1GateClosed.visible=true
+           textSize(100);
+           fill("black")
+           text("Finished",displayWidth/2-200,displayHeight/2+210)
+           
+           area1BorderA.visible=true;
+           area1BorderB.visible=true;
+           area1obA.destroy();
+           area1obB.destroy();
+           area1obC.destroy();
+           area1obD.destroy();
+       
+    }
+
+    if(gameState=='puzzle1'||gameState=='puzzle2'||gameState=='puzzle3'){
+        area1obA.destroy();
+        area1obB.destroy();
+        area1obC.destroy();
+        area1obD.destroy();
+        area1BorderA.visible=false;
+        area1BorderB.visible=false;
+        area2BorderA.visible=false;
+        area2BorderB.visible=false;
+        area2Gate.destroy();
+        gun.destroy();
+        fish.visible=false;
+     }      
 
     fish.display();
     inviBorder1.display();
