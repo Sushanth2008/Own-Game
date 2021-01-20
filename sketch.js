@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 var backgroundImg;
 var fish;
 var gun;
-var gameState='stage1';
+var gameState='stage2';
 var rand1;
 var rand2;
 var puzzle1Input;
@@ -19,6 +19,7 @@ function preload() {
     fishImg2=loadImage("Images/fishImage2.png")
     fishImg3=loadImage("Images/fishImage3.png")
     gunImg=loadImage("Images/gunImage.png")
+    bulletImg=loadImage("Images/bulletImg.png")
 }
 
 function setup(){
@@ -51,6 +52,9 @@ function setup(){
     inviBorder3.visible=false;
     inviBorder4=createSprite(displayWidth/2,displayHeight/2+237,2000,5);
     inviBorder4.visible=false;
+
+    inviBorder5=createSprite(displayWidth/2+535,displayHeight/2-25,5,240);
+    inviBorder5.visible=false;
 
     rand1=Math.round(random(2000,20000));
     rand2=Math.round(random(2000,20000));
@@ -103,7 +107,7 @@ function setup(){
     area2cover.shapeColor="black"
     area2cover.visible=false;
 
-    area3cover=createSprite(displayWidth/2,displayHeight/2-30,1400,250);
+    area3cover=createSprite(displayWidth/2,displayHeight/2-270,1400,230);
     area3cover.shapeColor="black"
     area3cover.visible=false;
 
@@ -111,13 +115,15 @@ function setup(){
     puzzleScreen1.shapeColor="green"
     puzzleScreen1.visible=false
 
+    
+
    
 
     gun=createSprite(displayWidth/2+600,displayHeight/2-20,50,15)
     gun.addAnimation("gun",gunImg)
     gun.scale=0.5
     gun.visible=false;
-    gun.velocityY=4    
+   // gun.velocityY=4;
 
 }
 
@@ -151,6 +157,7 @@ function draw(){
         }
 
         area2cover.visible=true;
+        area3cover.visible=true;
        
 }    
 
@@ -173,6 +180,7 @@ function draw(){
         puzzle1InputVal=puzzle1Input.value();
 
         area2cover.visible=false
+        area3cover.visible=false
 
        
         
@@ -203,14 +211,14 @@ function draw(){
             fish2.x=fish2.x-10
         }
 
-       fish.y=displayHeight/2+50
        fish.x=displayWidth/2-600
-
-       
+       fish.y=displayHeight/2+190 
 
        area1GateClosed.visible=true
        area1cover.visible=true;
        area2cover.visible=false;
+       area3cover.visible=true;
+
        textSize(100);
        fill("white")
        text("Finished",displayWidth/2-200,displayHeight/2+210)       
@@ -228,7 +236,7 @@ function draw(){
        area1obB.destroy();
        area1obC.destroy();
        area1obD.destroy();
-       fish.destroy();
+       
 
        area2BorderA.visible=true
        area2BorderB.visible=true
@@ -272,6 +280,9 @@ function draw(){
 
            fish3.visible=true;
 
+           fish2.x=displayWidth/2-600
+           fish2.y=displayHeight/2
+
            textSize(100);
            fill("white")
            text("Finished",displayWidth/2-200,displayHeight/2+210)
@@ -285,10 +296,9 @@ function draw(){
 
            area2cover.visible=true;
            area1cover.visible=true;
+           area3cover.visible=false;
 
            gun.destroy();
-           fish.destroy();
-           fish2.destroy();
            area2Gate.destroy();
            area2gateClosed.display()
 
@@ -321,13 +331,11 @@ function draw(){
         gun.velocityY=-4;
     }   
 
-    fish.display();
-    fish2.display();
-    fish3.display();
     inviBorder1.display();
     inviBorder2.display();
     inviBorder3.display();
     inviBorder4.display();
+    inviBorder5.display();
 
     area1BorderA.display();
     area1BorderB.display();
@@ -342,7 +350,7 @@ function draw(){
     area2Gate.display();
     gun.display(); 
 
-    area3cover.visible();
+    area3cover.display();
 
     fish.collide(inviBorder1);
     fish.collide(inviBorder2);
@@ -361,6 +369,7 @@ function draw(){
     fish2.collide(inviBorder2);
     fish2.collide(inviBorder3);
     fish2.collide(inviBorder4);
+    fish2.collide(inviBorder5);
     fish2.collide(area1BorderA);
     fish2.collide(area1BorderB);
     fish2.collide(area1GateClosed);
@@ -377,6 +386,10 @@ function draw(){
     fish3.collide(inviBorder3);
     fish3.collide(inviBorder4);
 
+    fish.display();
+    fish2.display();
+    fish3.display();
+
     //spawnobstacles()
 
    textSize(50)
@@ -386,12 +399,14 @@ function draw(){
 }
 
 function spawnobstacles(){
-    if(keyDown("space"))
-   bullet=createSprite(displayWidth/2,displayHeight/2,10,10);
-   bullet.y=gun.y
-   bullet.x=gun.x
+   if(keyDown("space")){
+   bullet=createSprite(gun.x,101);
+   bullet.addAnimation("bullet",bulletImg)
+   bullet.scale=0.04
+   bullet.y=gun.y-30
    bullet.velocityX-4
    bullet.lifetime=100;
    bulletGroup.add(bullet)
    return bullet;
+   }
 }
