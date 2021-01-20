@@ -4,18 +4,20 @@ const Bodies = Matter.Bodies;
 var backgroundImg;
 var fish;
 var gun;
-var gameState='stage3';
+var gameState='stage1';
 var rand1;
 var rand2;
 var puzzle1Input;
 var puzzle1InputVal
 var puzzle1Button;
 var bullet;
+var life;
 
 function preload() {
     backgroundImg=loadImage("Images/background.jpg")
     fishImg=loadImage("Images/fishImage.png")
     fishImg2=loadImage("Images/fishImage2.png")
+    fishImg3=loadImage("Images/fishImage3.png")
     gunImg=loadImage("Images/gunImage.png")
 }
 
@@ -34,6 +36,11 @@ function setup(){
     fish2.addAnimation("fish",fishImg2)
     fish2.visible=false;
     fish2.scale=0.15
+
+    fish3=createSprite(displayWidth/2-600,displayHeight/2-270)
+    fish3.addAnimation("fish",fishImg3)
+    fish3.visible=false;
+    fish3.scale=0.15
 
     inviBorder1=createSprite(displayWidth/2-680,displayHeight/2,5,1000);
     inviBorder1.visible=false;
@@ -96,6 +103,10 @@ function setup(){
     area2cover.shapeColor="black"
     area2cover.visible=false;
 
+    area3cover=createSprite(displayWidth/2,displayHeight/2-30,1400,250);
+    area3cover.shapeColor="black"
+    area3cover.visible=false;
+
     puzzleScreen1=createSprite(displayWidth/2,displayHeight/2,1500,1000)
     puzzleScreen1.shapeColor="green"
     puzzleScreen1.visible=false
@@ -114,7 +125,7 @@ function draw(){
 
     background(backgroundImg)
 
-    console.log(puzzle1InputVal);    
+    console.log(life);    
 
     if(gameState=='stage1'){
 
@@ -160,6 +171,12 @@ function draw(){
         puzzle1Input.position(displayWidth/2+displayWidth/6,displayHeight/2-displayHeight/5.1)
         puzzle1Button.position(displayWidth/2+displayWidth/3,displayHeight/2)
         puzzle1InputVal=puzzle1Input.value();
+
+        area2cover.visible=false
+
+       
+        
+        
 
         if(puzzle1InputVal==rand1+rand2 ){
             puzzle1Button.mousePressedOver(()=>{
@@ -236,22 +253,24 @@ function draw(){
     if(gameState=='stage3'){
 
         if(keyDown(UP_ARROW)){
-            fish.y=fish.y-10
+            fish3.y=fish3.y-10
         }
     
         if(keyDown(DOWN_ARROW)){
-            fish.y=fish.y+10
+            fish3.y=fish3.y+10
         }
     
         if(keyDown(RIGHT_ARROW)){
-            fish.x=fish.x+10
+            fish3.x=fish3.x+10
         }
     
         if(keyDown(LEFT_ARROW)){
-            fish.x=fish.x-10
+            fish3.x=fish3.x-10
         }
     
            area1GateClosed.visible=true
+
+           fish3.visible=true;
 
            textSize(100);
            fill("white")
@@ -303,7 +322,8 @@ function draw(){
     }   
 
     fish.display();
-    fish2.display()
+    fish2.display();
+    fish3.display();
     inviBorder1.display();
     inviBorder2.display();
     inviBorder3.display();
@@ -321,6 +341,8 @@ function draw(){
     area2BorderB.display();
     area2Gate.display();
     gun.display(); 
+
+    area3cover.visible();
 
     fish.collide(inviBorder1);
     fish.collide(inviBorder2);
@@ -345,13 +367,26 @@ function draw(){
     fish2.collide(area2BorderA);
     fish2.collide(area2BorderB);
     fish2.collide(area2Gate);
+    fish2.collide(gun)
 
-   // spawnobstacles()
+    fish3.collide(area2BorderA);
+    fish3.collide(area2BorderB);
+    fish3.collide(area2gateClosed);
+    fish3.collide(inviBorder1);
+    fish3.collide(inviBorder2);
+    fish3.collide(inviBorder3);
+    fish3.collide(inviBorder4);
+
+    //spawnobstacles()
+
+   textSize(50)
+   fill("white")
+   text(life,displayWidth/2,displayHeight/2)
     
 }
 
 function spawnobstacles(){
-    if(frameCount%100===0)
+    if(keyDown("space"))
    bullet=createSprite(displayWidth/2,displayHeight/2,10,10);
    bullet.y=gun.y
    bullet.x=gun.x
