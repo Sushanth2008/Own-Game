@@ -13,6 +13,15 @@ h1 {
   color: red;
 }
 
+h3 {
+  font-size: 150%;
+  align-items: center;
+  margin-left: 40%;
+  margin-top: -2%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: red;
+}
+
 .button {
  margin-left: 80% ;
  margin-top: 28%;
@@ -27,9 +36,32 @@ a{
   color:darkblue;
 }
 
-.image1{
-  margin-left: 2%;
-  margin-top: -25%;
+.fish1{
+  margin-top: -27%;
+  margin-left: 50%;
+}
+
+.fish2{
+  margin-left: 47%;
+}
+
+.fish3{
+  margin-top:2%;
+  margin-left:45%;
+}
+
+.txt1{
+  font-size: 200%;
+  margin-top:-33%;
+  margin-left: 1%;
+  color:orangered
+}
+
+.txt2{
+  font-size: 170%;
+  margin-top:0%;
+  margin-left:1%;
+  color:black
 }
 
 

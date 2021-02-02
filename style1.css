@@ -19,7 +19,7 @@ body {
   .nextButton{
     font-size: 200%;
     margin-left: 85%;
-    margin-top: 0%;
+    margin-top: 5%;
     width: 10%;
     border-radius: 100cm;
     background-image: linear-gradient(to right, rgb(255, 136, 0),rgb(255, 208, 0));

@@ -13,10 +13,6 @@ body {
       
   }
 
-  .text{
-      font-size:250% ;
-  }
-
   .button{
       width: 10%;
       border-radius: 100cm;
@@ -29,6 +25,11 @@ body {
       font-size:200% ;
       text-decoration: none;
       color: darkblue;
+  }
+
+  .text{
+      font-size: 200%;
+      margin-top: 5%;
   }
 
   .image1{
